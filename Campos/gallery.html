@@ -1,0 +1,175 @@
+<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+    crossorigin="anonymous"></script>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Filter</title>
+</head>
+
+<body>
+
+    <section>
+        <div class="form-check">
+            <input class="list" type="checkbox" data-filter="Braga">Braga
+            <input class="list" type="checkbox" data-filter="Esqueiros, Vila-Verde">Esqueiros, Vila-Verde
+        </div>
+        <div class="form-check">
+            <input class="list" type="checkbox" data-filter="Relvado sintético">Relvado sintético
+            <input class="list" type="checkbox" data-filter="Relvado natural">Relvado natural
+        </div>
+        <div class="form-check">
+            <input class="list" type="checkbox" data-filter="preco-crescente">Preco
+        </div>
+
+        <div class="button-container">
+            <button class="button_window" onclick="LimparFiltro()">LIMPAR</button>
+            <button class="button_window" id="filtrar-btn">Filtrar</button>
+        </div>
+
+        <div class="container" id="recintos">
+        </div>
+        <script>
+            window.onload = carregarCampos;
+            function carregarCampos() {
+                let recintosDiv = document.getElementById("recintos");
+                let recintosBD = JSON.parse(localStorage.getItem("recintos"));
+
+                for (let i = 0; i < recintosBD.length; i += 3) {
+                    let row = document.createElement("div");
+                    row.setAttribute("class", "row");
+                    row.style.justifyContent = "center";
+
+                    for (let j = i; j < i + 3 && j < recintosBD.length; j++) {
+                        let card = document.createElement("div");
+                        card.classList.add("card");
+                        card.setAttribute("class", "card mb-4");
+
+                        var image = document.createElement("img");
+                        image.setAttribute("src", "../" + recintosBD[j].image);
+                        image.setAttribute("class", "card-img-top img-fluid rounded-top-custom")
+                        image.style.maxHeight = '200px';
+                        image.style.minHeight = "200px";
+
+                        var body = document.createElement("div");
+                        body.setAttribute("class", "card-body");
+
+                        var titleElem = document.createElement("h2");
+                        titleElem.setAttribute("class", "card-title");
+                        titleElem.textContent = recintosBD[j].preco + "€/hora";
+
+                        var localizacao = document.createElement("h4");
+                        localizacao.textContent = recintosBD[j].localizacao;
+                        localizacao.setAttribute("class", "localizacao");
+
+
+
+                        var br = document.createElement("br");
+
+                        var button = document.createElement("button");
+                        button.setAttribute("type", "button");
+                        button.setAttribute("class", "btn btn-success btn-sm");
+                        button.setAttribute('id', "button" + recintosBD[j].id)
+                        button.textContent = "Reservar";
+
+                        button.addEventListener("click", function () {
+                            const id = this.id.slice(6); // pega apenas o número do id, removendo "button"
+                            localStorage.setItem("campoAtivo", id);
+                            window.location.href = "../Minhas Reservas/fazerReserva.html"; //abre a pagina na mesma cena
+                        });
+
+                        card.appendChild(image);
+                        body.appendChild(titleElem);
+                        body.appendChild(localizacao);
+                        body.appendChild(button);
+                        card.appendChild(body);
+                        row.appendChild(card);
+                    }
+
+                    recintosDiv.appendChild(row);
+                    document.getElementById("recintos").appendChild(row);
+                }
+            }
+
+            var selectedFilters = []; // matriz para armazenar as opções selecionadas
+            function LimparFiltro() {
+    // Get all the checkboxes in the window
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+    // Uncheck all the checkboxes
+    checkboxes.forEach((checkbox) => {
+        checkbox.checked = false;
+    });
+
+    // Clear the selected filters array
+    selectedFilters = [];
+}
+
+$(document).ready(function () {
+    let selectedFilters = [];
+
+    $('.list').click(function () {
+        const value = $(this).attr('data-filter');
+
+        if ($(this).hasClass('active')) {
+            selectedFilters = selectedFilters.filter(filter => filter !== value);
+        } else {
+            selectedFilters.push(value);
+        }
+
+        $(this).toggleClass('active');
+    });
+
+    $('#filtrar-btn').click(function () {
+        const filteredCards = [];
+
+        $('.card').each(function () {
+            const preco = parseFloat($(this).find('.card-title').text().replace('€/hora', '').trim());
+            const localizacao = $(this).find('.localizacao').text().trim();
+
+            if (selectedFilters.includes('preco-crescente')) {
+                // Ordena os cards pelo preço em ordem crescente
+                const cardsContainer = $('.row');
+                const cardsArray = Array.from(cardsContainer.children('.card'));
+
+                cardsArray.sort((cardA, cardB) => {
+                    const precoA = parseFloat($(cardA).find('.card-title').text().replace('€/hora', '').trim());
+                    const precoB = parseFloat($(cardB).find('.card-title').text().replace('€/hora', '').trim());
+
+                    return precoA - precoB;
+                });
+
+                // Remove todos os cards da página
+                cardsContainer.empty();
+
+                // Adiciona os cards de volta na ordem correta
+                cardsArray.forEach((card) => {
+                    cardsContainer.append(card);
+                });
+            }
+
+            if (selectedFilters.includes(localizacao) || selectedFilters.length === 0) {
+                filteredCards.push($(this));
+            }
+        });
+
+        if (selectedFilters.length === 0) {
+            $('.card').show('1000');
+            $('.list').removeClass('active');
+        } else {
+            $('.card').hide('1000');
+            filteredCards.forEach(card => card.show('1000'));
+        }
+
+        const count = filteredCards.length;
+    });
+});
+
+
+        </script>
+</body>
+
+</html>

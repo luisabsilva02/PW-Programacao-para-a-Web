@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="" />
+    <meta name="keywords" content="bootstrap, bootstrap5" />
+    <link rel="shortcut icon" href="../images/logo.png" style="width: max-content;">
+
+    
+    <!--index-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <script src="https://kit.fontawesome.com/09d8ff6fff.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="../Minhas Reservas/minhasReservas.css">
+
+   
+    <link rel="stylesheet" href="../navbar.css">
+    <link rel="stylesheet" href="listaCampos.css">
+    <!--index-->
+
+    <!--calendario-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <!--calendario-->
+
+    <title>Lista de todos os campos</title>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="../images/logoActivities4all.png" alt="Your Image" style="height: 100px; padding-left: 74%">
+              </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link " href="../Campos/listaCampos.html">Recintos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " id="paginaInicial" href="../index.html">Página Inicial</a>
+                    </li>
+                    <li class="nav-item" id="minhasReservas" style="display: none;">
+                        <a class="nav-link " href="../Minhas Reservas/minhasReservas.html">Minhas Reservas</a>
+                    </li>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+
+                    <li class="nav-item" id="dadosUtilizador" style="display: none;  padding-right: 130px">
+                        <div class="image-container">
+                            <img class="fotoPerfil" src="../images/person_1-min.jpg" id="imagemUtilizador1">
+                            <div class="dropdown" style="  position: absolute;">
+                                <ul>
+
+                                    <li>
+                                        <span class="label-label-perfil" style="font-size: 14px; margin-top: 10px;"><img
+                                                class="fotoPerfil2" src="../images/person_1-min.jpg"
+                                                id="imagemUtilizador2"><span id="nomeUtilizador"></span></span>
+                                    </li>
+                                    <li><a href="../Minha Conta/conta.html">Dados Pessoais</a></li>
+                                    <li><a href="../Login/login.html">Terminar Sessão</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <br><br>
+    <br><br>
+    <h5 style="text-align: center">Filtre os campos conforme as suas preferências!</h5>
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="input-group">
+
+                <input type="search" class="form-control" id="campo_pesquisa" placeholder="Pesquisar..."></input>
+
+                <span class="input-group-btn pull-right">
+
+
+                    <button class="btn btn-limpar" type="button" id="btn-limpar"
+                        onclick="LimparPesquisaFiltro()">Limpar</button>
+
+                    <script src="https://code.jquery.com/jquery-3.6.4.js"
+                        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+                        crossorigin="anonymous"></script>
+
+                    <button class="btn btn-default" type="button" id="btn-filtrar"
+                        onclick="toggleWindow(this)">FILTRAR</button>
+
+                    <div id="window_filtro">
+                        <div class="row_window">
+                            <div class="col-sm-2">
+                                <h6>COMPLEXO</h6>
+                                <ul class="list-unstyled">
+                                    <div class="loc form-check">
+
+                                        <li><input class="list form-check-input" type="checkbox"
+                                                data-filter="Braga">Braga</li>
+                                        <li><input class="list form-check-input" type="checkbox"
+                                                data-filter="Guimaraes">Guimaraes</li>
+                                        <li><input class="list form-check-input" type="checkbox"
+                                                data-filter="Porto">Porto</li>
+                                        <li><input class="list form-check-input" type="checkbox"
+                                                data-filter="Lisboa">Lisboa</li>
+                                        <li><input class="list form-check-input" type="checkbox"
+                                                data-filter="Algarve">Algarve</li>
+                                    </div>
+                                </ul>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <h6>TIPO DE JOGO</h6>
+                                <ul class="list-unstyled">
+                                    <div class="tipojogo form-check">
+
+                                        <li><input class="list form-check-input" type="checkbox"
+                                                data-filter="Futebol">Futebol</li>
+                                        <li><input class="list form-check-input" type="checkbox"
+                                                data-filter="Andebol">Andebol</li>
+                                        <li><input class="list form-check-input" type="checkbox"
+                                                data-filter="Tenis">Tenis</li>
+                                        <li><input class="list form-check-input" type="checkbox"
+                                                data-filter="Padel">Padel</li>
+                                        <li><input class="list form-check-input" type="checkbox"
+                                                data-filter="Futsal">Futsal</li>
+                                        <li><input class="list form-check-input" type="checkbox"
+                                                data-filter="Basquetebol">Basquetebol</li>
+                                        <li><input class="list form-check-input" type="checkbox"
+                                                data-filter="Natação">Natação</li>
+                                        <li><input class="list form-check-input" type="checkbox"
+                                                data-filter="Voleibol">Voleibol</li>
+                                    </div>
+                                </ul>
+                            </div>
+                            <div class="col-sm-2">
+                                <h6>TIPO DE PISO</h6>
+                                <ul class="list-unstyled">
+                                    <div class="tipopiso form-check">
+
+                                        <li><input class="list form-check-input" type="checkbox"
+                                                data-filter="Relvado natural">Relvado natural</li>
+                                        <li><input class="list form-check-input" type="checkbox"
+                                                data-filter="Relvado sintetico">Relvado sintético</li>
+                                        <li><input class="list form-check-input" type="checkbox"
+                                                data-filter="Alcatrão">Alcatrão</li>
+                                        <li><input class="list form-check-input" type="checkbox"
+                                                data-filter="Madeira">Madeira</li>
+                                        <li><input class="list form-check-input" type="checkbox"
+                                                data-filter="Borracha">Borracha</li>
+                                        <li><input class="list form-check-input" type="checkbox"
+                                                data-filter="Piso flash">Piso flash</li>
+                                        <li><input class="list form-check-input" type="checkbox"
+                                                data-filter="Terra batida">Terra batida</li>
+                                        <li><input class="list form-check-input" type="checkbox"
+                                                data-filter="Piso duro">Piso duro</li>
+
+                                    </div>
+                                </ul>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <h6>TIPO DE CAMPO</h6>
+                                <ul class="list-unstyled">
+                                    <div class="tipocampo form-check">
+
+                                        <li><input class="list form-check-input" type="checkbox"
+                                                data-filter="Indoor">Indoor</li>
+                                        <li><input class="list form-check-input" type="checkbox"
+                                                data-filter="Outdoor">Outdoor</li>
+                                    </div>
+                                </ul>
+                            </div>
+                            <div class="col-sm-2">
+                                <h6>PESQUISAR POR AVALIAÇÃO</h6>
+                                <ul class="list-unstyled">
+
+                                    <div class="pesquisaravaliacao form-check">
+
+                                        <li><input class="list form-check-input" type="checkbox" data-filter="5">⭐⭐⭐⭐⭐
+                                        </li>
+                                        <li><input class="list form-check-input" type="checkbox" data-filter="4">⭐⭐⭐⭐
+                                        </li>
+                                        <li><input class="list form-check-input" type="checkbox" data-filter="3">⭐⭐⭐
+                                        </li>
+                                        <li><input class="list form-check-input" type="checkbox" data-filter="2">⭐⭐
+                                        </li>
+                                        <li><input class="list form-check-input" type="checkbox" data-filter="1">⭐
+                                        </li>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="button-container">
+                            <button class="button_window" onclick="LimparFiltro()">LIMPAR</button>
+                            <button class="button_window" id="filtrar-btn">APLICAR</button>
+                        </div>
+                    </div>
+                </span>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <div class="card-section">
+        <div class="card-container" id="recintos">
+        </div>
+
+        <div id="mensagem" style="display: none;"></div><br>
+    </div>
+
+    <div class="rodape">
+        <footer>
+            <div class="conteudo-rodape">
+                <div class="row">
+                    <div class="col-sm-4"
+                        style="display: inline-block; vertical-align: middle; text-align: center; margin-left: calc(50% - [text width]/2);">
+                        <img src="../images/logoblack.png" alt="Your Image" style="height: 80px;">
+                    </div>
+                    <div class="col-sm-4"
+                        style="display: inline-block; text-align: center; margin-left: calc(50% - [text width]/2);">
+                        <p class="titulo-rodape">Área Cliente</p>
+                        <ul class="nav flex-column">
+                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">A sua Conta</a></li>
+                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Reservas</a></li>
+                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Registo/ Entrar</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-4"
+                        style="display: inline-block; text-align: center; margin-left: calc(50% - [text width]/2);">
+                        <p class="titulo-rodape">Ajuda</p>
+                        <ul class="nav flex-column">
+                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Contacte-nos</a> </li>
+                            <li class="nav-item mb-2"><i class="fa-brands fa-facebook fa-xl"></i> <i
+                                    class="fa-brands fa-linkedin fa-xl"></i> <i
+                                    class="fa-brands fa-instagram fa-xl"></i> <i class="fa-brands fa-twitter fa-xl"></i>
+                                <i class="fa-brands fa-reddit fa-xl"></i></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="listaCampos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"
+    integrity="sha512-WPtdqlctM92AaJX50S+bnz4rqfUb24D4ov/f4Q4J/n4j+LOeGNL8gJt9h3Kn/RsIUm1s2tTJgWfTTcMDHkGJjg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</html>
